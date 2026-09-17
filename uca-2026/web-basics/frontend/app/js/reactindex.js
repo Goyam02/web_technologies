@@ -18,11 +18,12 @@ function ReactTitle(props) {
 
 function RenderProducts() {
   const [productsList, setProductsList] = React.useState([]);
-  const [likes, setLikes] = React.useState(0);
+  const [likes, setLikes] = React.useState();
 
   let localLikes = 0;
 
   React.useEffect(() => {
+    console.log("State Likes after incrementing", likes);
     setTimeout(() => {
       setProductsList(productListFromServer);
     }, 2000);
@@ -71,9 +72,20 @@ function Form() {
   const [formElements, setFormElements] = React.useState(["id1", "id2", "id3"]);
 
   function reverseOrderOfFormElements() {
-    const reversedFormElements = [...formElements].reverse();
-    setFormElements(reversedFormElements);
+    console.log("Reversing order of form elements");
+    // const reversedFormElements = [...formElements].reverse();
+    // setFormElements(reversedFormElements);
+
+    setFormElements((currentFormElements) => {
+      currentFormElements.push("id4")
+      return currentFormElements;
+    });
   }
+
+  const reverseOrderOfFormElementsMemoized = React.useCallback(
+    reverseOrderOfFormElements,
+    [],
+  );
 
   return (
     <>
@@ -86,10 +98,14 @@ function Form() {
           );
         })}
       </form>
-      <Button
+      {/* <Button
         clickEventHandler={reverseOrderOfFormElements}
         text="Reverse Order of Form Elements"
-      ></Button>
+      ></Button> */}
+      <MemoizedButton
+        clickEventHandler={reverseOrderOfFormElementsMemoized}
+        text="Reverse Order of Form Elements"
+      ></MemoizedButton>
     </>
   );
 }
@@ -97,6 +113,7 @@ function Form() {
 function Button(props) {
   // Props: text, eventhandler,
   // style (mostly generic and not part of the prod )
+  console.log("Button component rerendering with props: ", props);
 
   return (
     <div style={{ padding: "10px" }}>
@@ -104,6 +121,8 @@ function Button(props) {
     </div>
   );
 }
+
+const MemoizedButton = React.memo(Button);
 
 // DOM update w.r.t. the browser is kind of equivalent to saying a component re-render
 // Step1: Update the local state of the component

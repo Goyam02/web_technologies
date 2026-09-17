@@ -4,7 +4,7 @@
 
 ## With some part of the application not using React at all and partial application running on React
 
-## Provides an easy to segregate the functionalities in the form of modular components (Seperation of concerns)
+## Provides an easy way to segregate the functionalities in the form of modular components (Seperation of concerns)
 
 ## The components are much more efficinet than created using normal js. ?????
 
@@ -41,10 +41,9 @@
 # React hooks
 
 ## Are the functions use for dirrent puprposes
-
 ## useState() - refer React state section above
-
 ## useEffect
+## useCallBack
 
 # Components re-render
 
@@ -57,3 +56,8 @@
 ### state update
 ### props update
 ### parent component is re-rendered
+
+## Memoization 
+### React.memo (HOF - Higher Order Function)
+### useMemo (React hook)
+### useCallback (React hook)
